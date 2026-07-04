@@ -1,0 +1,43 @@
+name: Check
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  site:
+    name: Site quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Reject unfinished content
+        run: |
+          if grep -R -E "REPLACE_ME|Replace this|20XX|Project name|Technology|Skill or discipline" site; then
+            echo "The résumé still contains placeholder content."
+            exit 1
+          fi
+      - name: Check internal links
+        uses: lycheeverse/lychee-action@v2
+        with:
+          args: --offline --no-progress './site/**/*.html'
+          fail: true
+
+  terraform:
+    name: Terraform quality
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: infrastructure/cloudflare
+    steps:
+      - uses: actions/checkout@v4
+      - uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.13.5"
+      - run: terraform fmt -check -recursive
+      - run: terraform init -backend=false
+      - run: terraform validate
+
