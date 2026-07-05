@@ -13,3 +13,9 @@ output "custom_domains" {
   value       = sort([for domain in cloudflare_pages_domain.resume : domain.name])
 }
 
+output "dns_records" {
+  description = "DNS records routing the custom domains to Cloudflare Pages."
+  value = {
+    for name, record in cloudflare_dns_record.resume : name => record.content
+  }
+}
