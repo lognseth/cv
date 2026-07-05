@@ -18,6 +18,5 @@ variable "production_branch" {
 variable "domains" {
   description = "Domains attached to the Pages project."
   type        = set(string)
-  default     = ["mikael.cv", "www.mikael.cv"]
+  default     = ["mikael.cv"]
 }
-

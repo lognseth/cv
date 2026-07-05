@@ -24,3 +24,38 @@ resource "cloudflare_dns_record" "resume" {
 
   comment = "Cloudflare Pages custom domain managed by Terraform"
 }
+
+resource "cloudflare_dns_record" "www_redirect" {
+  zone_id = cloudflare_pages_domain.resume["mikael.cv"].zone_tag
+  name    = "www.mikael.cv"
+  type    = "A"
+  content = "192.0.2.1"
+  proxied = true
+  ttl     = 1
+
+  comment = "Originless hostname for the www to apex redirect"
+}
+
+resource "cloudflare_ruleset" "www_redirect" {
+  zone_id     = cloudflare_pages_domain.resume["mikael.cv"].zone_tag
+  name        = "Canonical hostname redirects"
+  description = "Redirect alternate hostnames to mikael.cv"
+  kind        = "zone"
+  phase       = "http_request_dynamic_redirect"
+
+  rules = [{
+    ref         = "redirect_www_to_apex"
+    description = "Redirect www.mikael.cv to mikael.cv"
+    expression  = "(http.host eq \"www.mikael.cv\")"
+    action      = "redirect"
+    action_parameters = {
+      from_value = {
+        status_code           = 301
+        preserve_query_string = true
+        target_url = {
+          expression = "concat(\"https://mikael.cv\", http.request.uri.path)"
+        }
+      }
+    }
+  }]
+}

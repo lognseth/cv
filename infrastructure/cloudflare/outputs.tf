@@ -15,7 +15,8 @@ output "custom_domains" {
 
 output "dns_records" {
   description = "DNS records routing the custom domains to Cloudflare Pages."
-  value = {
-    for name, record in cloudflare_dns_record.resume : name => record.content
-  }
+  value = merge(
+    { for name, record in cloudflare_dns_record.resume : name => record.content },
+    { "www.mikael.cv" = cloudflare_dns_record.www_redirect.content }
+  )
 }
