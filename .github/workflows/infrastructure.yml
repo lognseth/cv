@@ -35,12 +35,16 @@ jobs:
       AWS_ACCESS_KEY_ID: ${{ secrets.R2_ACCESS_KEY_ID }}
       AWS_SECRET_ACCESS_KEY: ${{ secrets.R2_SECRET_ACCESS_KEY }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: hashicorp/setup-terraform@v3
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup
+        uses: hashicorp/setup-terraform@v3
         with:
           terraform_version: "1.13.5"
-      - run: terraform init -backend-config=backend.hcl
-      - run: terraform plan -out=tfplan
+      - name: Init
+        run: terraform init -backend-config=backend.hcl
+      - name: Plan
+        run: terraform plan -out=tfplan
       - name: Apply
-        if: inputs.action == 'apply'
+        if: inputs.action == 'apply' || (github.event_name == 'push' && github.ref == 'refs/heads/main')
         run: terraform apply -auto-approve tfplan
