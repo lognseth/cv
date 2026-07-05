@@ -1,4 +1,3 @@
-# Create this bucket once in Cloudflare R2. Do not commit credentials here.
 bucket = "mikael-cv-terraform-state"
 key    = "cloudflare/terraform.tfstate"
 region = "auto"
@@ -11,6 +10,5 @@ skip_s3_checksum            = true
 use_path_style              = true
 
 endpoints = {
-  s3 = "https://YOUR_ACCOUNT_ID.r2.cloudflarestorage.com"
+  s3 = "https://c270fab54ef416bbc950ad326f1cc6c3.r2.cloudflarestorage.com"
 }
-

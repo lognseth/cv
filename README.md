@@ -32,11 +32,12 @@ infrastructure/cloudflare/  Terraform configuration
 
 The domain already uses Cloudflare DNS. The remaining one-time setup is intentionally small:
 
-1. Create the private R2 bucket `mikael-cv-terraform-state`.
+1. Apply `cloudflare_r2_bucket.terraform_state` once with the local backend.
 2. Create bucket-scoped R2 credentials with Object Read & Write access.
-3. Create a least-privilege Cloudflare API token that can edit Pages and the `mikael.cv` zone.
-4. Add the secrets listed below to the GitHub `production` environment.
-5. Run the **Infrastructure** workflow with `apply`, followed by **Deploy site**.
+3. Migrate the bootstrap state into R2 with `terraform init -migrate-state -backend-config=backend.hcl`.
+4. Create a least-privilege Cloudflare API token that can edit Pages and the `mikael.cv` zone.
+5. Add the secrets listed below to the GitHub `production` environment.
+6. Run the **Infrastructure** workflow with `plan`, then `apply`, followed by **Deploy site**.
 
 If a Pages project named `mikael-cv` already exists, import it before applying:
 
@@ -65,11 +66,11 @@ python3 -m http.server --directory site 8000
 
 Then visit `http://localhost:8000`.
 
-To validate the infrastructure without connecting to the state backend:
+To initialize against the same R2 backend used by CI:
 
 ```sh
 cd infrastructure/cloudflare
-terraform init -backend=false
+terraform init -backend-config=backend.hcl
 terraform fmt -check
 terraform validate
 ```
@@ -81,4 +82,3 @@ Pull requests run local link checks and Terraform validation. The check delibera
 ## Security notes
 
 Secrets are supplied to short-lived GitHub Actions jobs and are never committed. The Cloudflare token should be scoped only to this account and zone. The R2 token should be scoped only to the state bucket. Terraform plan output can contain sensitive values, so plans are not uploaded as public workflow artifacts.
-

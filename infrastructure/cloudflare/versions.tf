@@ -8,8 +8,6 @@ terraform {
     }
   }
 
-  # Production initialization supplies the R2 settings from backend.hcl.
-  # For validation without credentials, use: terraform init -backend=false
+  # Backend settings and credentials are supplied at initialization time.
   backend "s3" {}
 }
-
