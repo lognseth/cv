@@ -6,8 +6,10 @@
   Content-Security-Policy: default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
 
 /styles.css
-  Cache-Control: public, max-age=604800
+  Cache-Control: no-cache
+
+/script.js
+  Cache-Control: no-cache
 
 /favicon.svg
   Cache-Control: public, max-age=2592000
-
