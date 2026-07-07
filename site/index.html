@@ -4,6 +4,7 @@
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#f4f0e8" />
+        <meta name="color-scheme" content="light dark" />
         <meta
             name="description"
             content="Mikael Lognseth is a Principal Cloud Engineer working across Azure, Kubernetes, Terraform, GitOps, and platform engineering."
@@ -27,12 +28,22 @@
             <a class="wordmark" href="./" aria-label="Mikael Lognseth, home"
                 >M.</a
             >
-            <nav aria-label="Primary navigation">
-                <a href="#about">About</a>
-                <a href="#experience">Experience</a>
-                <a href="#work">Focus</a>
-                <a href="#contact">Contact</a>
-            </nav>
+            <div class="header-controls">
+                <nav aria-label="Primary navigation">
+                    <a href="#about">About</a>
+                    <a href="#experience">Experience</a>
+                    <a href="#work">Focus</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <button
+                    class="theme-toggle"
+                    type="button"
+                    aria-label="Switch to dark mode"
+                    aria-pressed="false"
+                >
+                    <span aria-hidden="true">☾</span>
+                </button>
+            </div>
         </header>
 
         <main id="main">
