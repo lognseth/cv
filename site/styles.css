@@ -6,7 +6,6 @@
   --surface: #ebe5da;
   --accent: #d85b35;
   --line: rgba(20, 35, 30, 0.18);
-  --inverse-muted: #b9c1bd;
   --max: 1120px;
 }
 
@@ -18,7 +17,6 @@
   --surface: #18231f;
   --accent: #f07a50;
   --line: rgba(237, 242, 239, 0.16);
-  --inverse-muted: #5d6863;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -30,7 +28,6 @@
     --surface: #18231f;
     --accent: #f07a50;
     --line: rgba(237, 242, 239, 0.16);
-    --inverse-muted: #5d6863;
   }
 }
 
@@ -98,12 +95,12 @@ h1 { max-width: 820px; margin: 0; font-family: Georgia, "Times New Roman", serif
 .skill-list { padding: 0; columns: 2; list-style: none; }
 .skill-list li { margin-bottom: 8px; }
 .skill-list li::before { content: "— "; color: var(--accent); }
-.contact { width: min(calc(100% - 40px), var(--max)); margin: 40px auto; padding: clamp(42px, 8vw, 90px); color: var(--paper); background: var(--ink); }
-.contact p:not(.eyebrow) { max-width: 650px; color: var(--inverse-muted); font-size: 1.1rem; }
-.contact .button { margin-top: 18px; background: var(--paper); color: var(--ink); }
+.contact { width: min(calc(100% - 40px), var(--max)); margin: 40px auto; padding: clamp(42px, 8vw, 90px); color: #f4f0e8; background: #14231e; }
+.contact p:not(.eyebrow) { max-width: 650px; color: #b9c1bd; font-size: 1.1rem; }
+.contact .button { margin-top: 18px; background: #f4f0e8; color: #14231e; }
 .contact .hero-actions { margin-top: 18px; }
 .contact .hero-actions .button { margin-top: 0; }
-.contact-link { color: var(--paper); font-weight: 700; }
+.contact-link { color: #f4f0e8; font-weight: 700; }
 footer { display: flex; justify-content: space-between; padding: 40px 0 60px; color: var(--muted); font-size: .85rem; }
 
 @media (max-width: 700px) {
